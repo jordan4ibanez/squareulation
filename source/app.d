@@ -5,59 +5,59 @@ import utility.grid;
 
 void main() {
 
-	auto map = Grid!int(5, 5);
+    auto map = Grid!int(5, 5);
 
-	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
-	SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+    SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
+    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
 
-	validateRaylibBinding();
-	InitWindow(800, 400, "Squareulation");
-	SetTargetFPS(60);
+    validateRaylibBinding();
+    InitWindow(800, 400, "Squareulation");
+    SetTargetFPS(60);
 
-	Textures.load();
+    Textures.load();
 
-	Camera2D camera;
-	camera.target = Vector2(0, 0);
-	camera.rotation = 0f;
-	camera.zoom = 2.0f;
+    Camera2D camera;
+    camera.target = Vector2(0, 0);
+    camera.rotation = 0f;
+    camera.zoom = 2.0f;
 
-	Vector2 playerPos;
+    Vector2 playerPos;
 
-	while (!WindowShouldClose()) {
+    while (!WindowShouldClose()) {
 
-		BeginDrawing();
-		ClearBackground(Colors.RAYWHITE);
+        BeginDrawing();
+        ClearBackground(Colors.RAYWHITE);
 
-		BeginMode2D(camera);
+        BeginMode2D(camera);
 
-		auto windowWidth = GetScreenWidth();
-		auto windowHeight = GetScreenHeight();
+        auto windowWidth = GetScreenWidth();
+        auto windowHeight = GetScreenHeight();
 
-		if (IsKeyDown(KeyboardKey.KEY_A)) {
-			playerPos.x -= 1;
-		} else if (IsKeyDown(KeyboardKey.KEY_D)) {
-			playerPos.x += 1;
-		}
+        if (IsKeyDown(KeyboardKey.KEY_A)) {
+            playerPos.x -= 1;
+        } else if (IsKeyDown(KeyboardKey.KEY_D)) {
+            playerPos.x += 1;
+        }
 
-		camera.target = playerPos;
-		camera.offset = Vector2(windowWidth / 2, windowHeight / 2);
+        camera.target = playerPos;
+        camera.offset = Vector2(windowWidth / 2, windowHeight / 2);
 
-		foreach (x; 0 .. 10) {
-			foreach (y; 0 .. 10) {
-				// DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
-				auto texture = Textures.get("arrow.png");
-				auto source = Rectangle(0, 0, texture.width, texture.height);
-				auto dest = Rectangle(x * 32, y * 32, 32, 32);
-				DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
-			}
-		}
+        foreach (x; 0 .. 10) {
+            foreach (y; 0 .. 10) {
+                // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
+                auto texture = Textures.get("arrow.png");
+                auto source = Rectangle(0, 0, texture.width, texture.height);
+                auto dest = Rectangle(x * 32, y * 32, 32, 32);
+                DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
+            }
+        }
 
-		EndMode2D();
+        EndMode2D();
 
-		EndDrawing();
-	}
+        EndDrawing();
+    }
 
-	writeln("Edit source/app.d to start your project.");
+    writeln("Edit source/app.d to start your project.");
 
-	CloseWindow();
+    CloseWindow();
 }
