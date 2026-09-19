@@ -8,5 +8,16 @@
 	],
 	"copyright": "Copyright © 2026, jordan4ibanez",
 	"license": "GPL-3.0-only",
-	"name": "squareulation"
+	"name": "squareulation",
+	"libs": ["raylib"],
+	"lflags-posix": [
+		"-L."
+	],
+	"lflags-osx": [
+		"-rpath",
+		"@executable_path/"
+	],
+	"lflags-linux" : [
+		"-rpath=$$ORIGIN"
+	]
 }
