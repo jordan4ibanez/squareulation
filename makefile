@@ -1,2 +1,2 @@
 default:
-	dub run
+	@dub run
