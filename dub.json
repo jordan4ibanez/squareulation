@@ -1,0 +1,9 @@
+{
+	"description": "A 2D game",
+	"license": "GPL-3.0-only",
+	"authors": [
+		"jordan4ibanez"
+	],
+	"copyright": "Copyright © 2026, jordan4ibanez",
+	"name": "squareulation"
+}

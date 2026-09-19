@@ -1,0 +1,17 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/squareulation
+squareulation.so
+squareulation.dylib
+squareulation.dll
+libsquareulation.a
+squareulation.a
+squareulation.lib
+squareulation-test-*
+*.exe
+*.pdb
+*.o
+*.obj
+*.lst
