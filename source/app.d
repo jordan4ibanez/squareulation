@@ -25,6 +25,16 @@ void main() {
 
     while (!WindowShouldClose()) {
 
+        //? Logic.
+
+        if (IsKeyDown(KeyboardKey.KEY_A)) {
+            playerPos.x -= 1;
+        } else if (IsKeyDown(KeyboardKey.KEY_D)) {
+            playerPos.x += 1;
+        }
+
+        //? Rendering.
+
         BeginDrawing();
         ClearBackground(Colors.RAYWHITE);
 
@@ -32,12 +42,6 @@ void main() {
 
         auto windowWidth = GetScreenWidth();
         auto windowHeight = GetScreenHeight();
-
-        if (IsKeyDown(KeyboardKey.KEY_A)) {
-            playerPos.x -= 1;
-        } else if (IsKeyDown(KeyboardKey.KEY_D)) {
-            playerPos.x += 1;
-        }
 
         camera.target = playerPos;
         camera.offset = Vector2(windowWidth / 2, windowHeight / 2);
