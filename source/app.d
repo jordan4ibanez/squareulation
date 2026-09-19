@@ -7,6 +7,8 @@ void main() {
 
 	auto map = Grid!int(5, 5);
 
+	SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
+
 	validateRaylibBinding();
 	InitWindow(800, 400, "Squareulation");
 	SetTargetFPS(60);
