@@ -1,23 +1,23 @@
 {
-	"description": "A 2D game",
-	"dependencies": {
-		"raylib-d": "~>6.0.1"
-	},
-	"authors": [
-		"jordan4ibanez"
-	],
-	"copyright": "Copyright © 2026, jordan4ibanez",
-	"license": "GPL-3.0-only",
-	"name": "squareulation",
-	"libs": ["raylib"],
-	"lflags-posix": [
-		"-L."
-	],
-	"lflags-osx": [
-		"-rpath",
-		"@executable_path/"
-	],
-	"lflags-linux" : [
-		"-rpath=$$ORIGIN"
-	]
+    "description": "A 2D game",
+    "dependencies": {
+        "raylib-d": "~>6.0.1"
+    },
+    "authors": [
+        "jordan4ibanez"
+    ],
+    "copyright": "Copyright © 2026, jordan4ibanez",
+    "license": "GPL-3.0-only",
+    "name": "squareulation",
+    "libs": ["raylib"],
+    "lflags-posix": [
+        "-L."
+    ],
+    "lflags-osx": [
+        "-rpath",
+        "@executable_path/"
+    ],
+    "lflags-linux" : [
+        "-rpath=$$ORIGIN"
+    ]
 }
