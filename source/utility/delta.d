@@ -17,6 +17,7 @@ private:
 
 public:
 
+    /// Only to be used by the main loop.
     void __calculateDelta() {
         after = MonoTime.currTime;
         Duration duration = after - before;
