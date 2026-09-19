@@ -31,4 +31,8 @@ static:
             }
         }
     }
+
+    Texture2D get(string key) {
+        return database[key];
+    }
 }
