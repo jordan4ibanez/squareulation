@@ -15,3 +15,4 @@ squareulation-test-*
 *.o
 *.obj
 *.lst
+libraylib.so*
