@@ -1,5 +1,6 @@
 import raylib;
 import std.stdio;
+import textures.textures;
 import utility.grid;
 
 void main() {
@@ -9,6 +10,9 @@ void main() {
 	validateRaylibBinding();
 	InitWindow(800, 400, "Squareulation");
 	SetTargetFPS(60);
+
+	Textures.load();
+
 	while (!WindowShouldClose()) {
 
 		BeginDrawing();
