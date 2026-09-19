@@ -12,6 +12,9 @@ static:
 
     Texture2D[string] database;
 
+    /// Blindly load in any png in the textures folder.
+    /// Store all pngs by their filename.
+    /// Crash upon duplicate.
     void load() {
         foreach (DirEntry entry; dirEntries(absolutePath(getcwd()), SpanMode.depth)) {
             if (entry.isFile && entry.name.extension.toLower() == ".png") {
