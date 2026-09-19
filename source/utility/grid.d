@@ -1,7 +1,8 @@
 module utility.grid;
 
 struct Grid(T) {
-    size_t width, height;
+    size_t width;
+    size_t height;
     T[] data;
 
     this(size_t w, size_t h) {
