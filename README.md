@@ -1,0 +1,1 @@
+The goal of this game is to make the lest cohesive looking game possible that's still fun.
