@@ -13,12 +13,8 @@ static:
     Texture2D[string] database;
 
     void load() {
-
-        string rootDir = absolutePath(getcwd());
-
-        foreach (DirEntry entry; dirEntries(rootDir, SpanMode.depth)) {
+        foreach (DirEntry entry; dirEntries(absolutePath(getcwd()), SpanMode.depth)) {
             if (entry.isFile && entry.name.extension.toLower() == ".png") {
-                // todo: load file into memory, save png as something. However raylib does it.
 
                 string fullPath = entry.name;
                 string fileName = fullPath.baseName;
