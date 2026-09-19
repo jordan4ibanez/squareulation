@@ -1,9 +1,12 @@
 {
 	"description": "A 2D game",
-	"license": "GPL-3.0-only",
+	"dependencies": {
+		"raylib-d": "~>6.0.1"
+	},
 	"authors": [
 		"jordan4ibanez"
 	],
 	"copyright": "Copyright © 2026, jordan4ibanez",
+	"license": "GPL-3.0-only",
 	"name": "squareulation"
 }
