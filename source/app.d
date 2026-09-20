@@ -25,6 +25,8 @@ void main() {
 
     while (!WindowShouldClose()) {
 
+        // todo: fixed map size: 1024x1024
+
         //? Logic.
 
         if (IsKeyDown(KeyboardKey.KEY_A)) {
