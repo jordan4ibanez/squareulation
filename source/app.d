@@ -5,7 +5,9 @@ import utility.grid;
 
 void main() {
 
-    auto map = Grid!int(5, 5);
+    // todo: fixed map size: 1024x1024
+
+    auto map = Grid!int(1024, 1024);
 
     SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
     SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
@@ -24,8 +26,6 @@ void main() {
     Vector2 playerPos;
 
     while (!WindowShouldClose()) {
-
-        // todo: fixed map size: 1024x1024
 
         //? Logic.
 
