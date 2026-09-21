@@ -18,6 +18,8 @@ void main() {
 
     Textures.load();
 
+    MaximizeWindow();
+
     Camera2D camera;
     camera.target = Vector2(0, 0);
     camera.rotation = 0f;
