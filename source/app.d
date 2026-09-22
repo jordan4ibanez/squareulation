@@ -18,7 +18,7 @@ void main() {
     auto map = Grid!int(mapWidth, mapWidth);
 
     SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
-    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE | ConfigFlags.FLAG_VSYNC_HINT);
+    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE); // | ConfigFlags.FLAG_VSYNC_HINT);
 
     validateRaylibBinding();
     InitWindow(800, 400, "Squareulation");
@@ -33,7 +33,7 @@ void main() {
     camera.rotation = 0f;
     camera.zoom = 2.0f;
 
-    Vector2 playerPos;
+    Vector2 playerPos = Vector2(512, 512);
 
     while (!WindowShouldClose()) {
 
@@ -41,19 +41,24 @@ void main() {
 
         // writeln(Delta.getDelta());
 
+        auto delta = Delta.getDelta();
+
         //? Logic.
 
         {
+
+            auto speed = 1000.0;
+
             if (IsKeyDown(KeyboardKey.KEY_A)) {
-                playerPos.x -= 1;
+                playerPos.x -= speed * delta;
             } else if (IsKeyDown(KeyboardKey.KEY_D)) {
-                playerPos.x += 1;
+                playerPos.x += speed * delta;
             }
 
             if (IsKeyDown(KeyboardKey.KEY_W)) {
-                playerPos.y -= 1;
+                playerPos.y -= speed * delta;
             } else if (IsKeyDown(KeyboardKey.KEY_S)) {
-                playerPos.y += 1;
+                playerPos.y += speed * delta;
             }
         }
 
@@ -67,7 +72,8 @@ void main() {
                 } else {
                     camera.zoom /= zoomFactor;
                 }
-                camera.zoom = clamp(camera.zoom, 0.1f, 10.0f);
+                camera.zoom = clamp(camera.zoom, 0.9f, 10.0f);
+                writeln(camera.zoom);
             }
         }
 
@@ -150,8 +156,8 @@ void main() {
 
         EndMode2D();
 
-        // DrawText(("FPS:" ~ to!string(GetFPS()) ~ " | Loop count: " ~ to!string(count))
-        //         .toStringz(), 0, 0, 48, Colors.RED);
+        DrawText(("FPS:" ~ to!string(GetFPS()) ~ " | Loop count: " ~ to!string(count))
+                .toStringz(), 0, 0, 48, Colors.RED);
 
         EndDrawing();
     }
