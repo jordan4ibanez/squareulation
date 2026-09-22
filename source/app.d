@@ -1,6 +1,8 @@
 import raylib;
 import std.algorithm;
+import std.conv;
 import std.stdio;
+import std.string;
 import textures.textures;
 import utility.delta;
 import utility.grid;
@@ -19,7 +21,7 @@ void main() {
 
     validateRaylibBinding();
     InitWindow(800, 400, "Squareulation");
-    SetTargetFPS(60);
+    SetTargetFPS(0);
 
     Textures.load();
 
@@ -85,12 +87,10 @@ void main() {
         camera.offset = halfCamera;
 
         // This is really dumb and slow and is just proof of concept.
-        foreach (x; 0 .. 10) {
-            foreach (y; 0 .. 10) {
+        foreach (x; 0 .. mapWidth) {
+            foreach (y; 0 .. mapWidth) {
                 // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
 
-                auto texture = Textures.get("dirt.png");
-                auto source = Rectangle(0, 0, texture.width, texture.height);
                 auto pos = Vector2(x * tileSize, y * tileSize);
                 auto dest = Rectangle(pos.x, pos.y, tileSize, tileSize);
 
@@ -117,9 +117,10 @@ void main() {
                     if (worldPos.y > windowHeight) {
                         continue;
                     }
-
-                    writeln(worldPos);
                 }
+
+                auto texture = Textures.get("dirt.png");
+                auto source = Rectangle(0, 0, texture.width, texture.height);
 
                 DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
                 // Debug to see the grid.
@@ -128,6 +129,8 @@ void main() {
         }
 
         EndMode2D();
+
+        DrawText(("FPS:" ~ to!string(GetFPS())).toStringz(), 0, 0, 48, Colors.RED);
 
         EndDrawing();
     }
