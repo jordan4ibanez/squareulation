@@ -31,7 +31,7 @@ void main() {
     Camera2D camera;
     camera.target = Vector2(0, 0);
     camera.rotation = 0f;
-    camera.zoom = 2.0f;
+    camera.zoom = 2.75f;
 
     Vector2 playerPos = Vector2(512, 512);
 
@@ -146,7 +146,7 @@ void main() {
 
                 DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
                 // // Debug to see the grid.
-                DrawRectangleLinesEx(dest, 0.25, Colors.RED);
+                // DrawRectangleLinesEx(dest, 0.25, Colors.RED);
             }
         }
 
@@ -158,6 +158,8 @@ void main() {
 
         DrawText(("FPS:" ~ to!string(GetFPS()) ~ " | Loop count: " ~ to!string(count))
                 .toStringz(), 0, 0, 48, Colors.RED);
+
+        DrawText(("POSX:" ~ to!string(playerPos.x)).toStringz(), 0, 48, 48, Colors.RED);
 
         EndDrawing();
     }
