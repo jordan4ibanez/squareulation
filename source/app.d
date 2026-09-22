@@ -74,7 +74,7 @@ void main() {
             }
 
             if (hit) {
-                playerWalkThing += delta;
+                playerWalkThing += delta * 30.0;
             }
         }
 
@@ -172,8 +172,8 @@ void main() {
         auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
         auto dest = Rectangle(playerPos.x * tileSize, playerPos.y * tileSize, tileSize, tileSize);
 
-        DrawTexturePro(playerTexture, source, dest, Vector2(tileSize / 2, tileSize / 2), uniform(0, 360.28f), Colors
-                .WHITE);
+        DrawTexturePro(playerTexture, source, dest, Vector2(tileSize / 2, tileSize / 2), cos(
+                playerWalkThing) * 10.0, Colors.WHITE);
 
         DrawCircle(cast(int) renderTopLeft.x, cast(int) renderTopLeft.y, 10, Colors.GREEN);
         DrawCircle(cast(int) renderBottomRight.x - tileSize, cast(int) renderBottomRight.y - tileSize, 10, Colors
