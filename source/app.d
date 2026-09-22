@@ -149,8 +149,8 @@ void main() {
                 auto source = Rectangle(0, 0, texture.width, texture.height);
 
                 DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
-                // // Debug to see the grid.
-                // DrawRectangleLinesEx(dest, 0.25, Colors.RED);
+                // Debug to see the grid.
+                DrawRectangleLinesEx(dest, 0.25, Colors.RED);
             }
         }
 
