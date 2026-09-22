@@ -55,8 +55,12 @@ void main() {
                 // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
                 auto texture = Textures.get("dirt.png");
                 auto source = Rectangle(0, 0, texture.width, texture.height);
-                auto dest = Rectangle(x * 32, y * 32, 32, 32);
+
+                auto pos = Vector2(x * 32, y * 32);
+
+                auto dest = Rectangle(pos.x, pos.y, 32, 32);
                 DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
+                DrawRectangleLines(cast(int) pos.x, cast(int) pos.y, 32, 32, Colors.RED);
             }
         }
 
