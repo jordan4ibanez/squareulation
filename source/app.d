@@ -20,7 +20,7 @@ void main() {
     const mapWidth = 4096;
     const tileSize = 32;
 
-    auto map = Grid!int(mapWidth, mapWidth);
+    auto map = Grid!int(mapWidth, mapWidth, 1);
 
     SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
     SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE); // | ConfigFlags.FLAG_VSYNC_HINT);
@@ -112,11 +112,11 @@ void main() {
         auto renderBottomRight = Vector2Add(GetScreenToWorld2D(Vector2(windowWidth, windowHeight), camera),
             Vector2(tileSize, tileSize));
 
-        auto startX = clamp(floor(renderTopLeft.x / tileSize), 0, mapWidth);
-        auto endX = clamp(floor(renderBottomRight.x / tileSize), 0, mapWidth);
+        int startX = cast(int) clamp(floor(renderTopLeft.x / tileSize), 0, mapWidth);
+        int endX = cast(int) clamp(floor(renderBottomRight.x / tileSize), 0, mapWidth);
 
-        auto startY = clamp(floor(renderTopLeft.y / tileSize), 0, mapWidth);
-        auto endY = clamp(floor(renderBottomRight.y / tileSize), 0, mapWidth);
+        int startY = cast(int) clamp(floor(renderTopLeft.y / tileSize), 0, mapWidth);
+        int endY = cast(int) clamp(floor(renderBottomRight.y / tileSize), 0, mapWidth);
 
         // writeln("width:" ~ to!string(endX - startX));
         // writeln("height:" ~ to!string(endY - startY));
@@ -157,12 +157,15 @@ void main() {
                     }
                 }
 
-                auto texture = Textures.get("dirt.png");
-                auto source = Rectangle(0, 0, texture.width, texture.height);
+                if (map[x, y] == 1) {
+                    auto texture = Textures.get("dirt.png");
+                    auto source = Rectangle(0, 0, texture.width, texture.height);
 
-                DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
-                // Debug to see the grid.
-                DrawRectangleLinesEx(dest, 0.25, Colors.RED);
+                    DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
+                    // Debug to see the grid.
+                    DrawRectangleLinesEx(dest, 0.25, Colors.RED);
+                }
+
             }
         }
 
