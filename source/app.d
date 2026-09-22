@@ -1,6 +1,7 @@
 import raylib;
 import std.algorithm;
 import std.conv;
+import std.math;
 import std.stdio;
 import std.string;
 import textures.textures;
@@ -17,7 +18,7 @@ void main() {
     auto map = Grid!int(mapWidth, mapWidth);
 
     SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
-    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
+    SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE | ConfigFlags.FLAG_VSYNC_HINT);
 
     validateRaylibBinding();
     InitWindow(800, 400, "Squareulation");
@@ -73,30 +74,35 @@ void main() {
         //? Rendering.
 
         BeginDrawing();
-        ClearBackground(Colors.RAYWHITE);
+        ClearBackground(Colors.BLACK);
+
+        // It must center on the player before 2D mode begins or else it is rubber banding towards the player.
+        auto windowWidth = GetScreenWidth();
+        auto windowHeight = GetScreenHeight();
+        camera.target = playerPos;
+        auto halfWindow = Vector2(windowWidth / 2, windowHeight / 2);
+        camera.offset = halfWindow;
 
         BeginMode2D(camera);
 
-        auto windowWidth = GetScreenWidth();
-        auto windowHeight = GetScreenHeight();
+        // Get the top left and bottom right screen coordinates to make this render only what's needed.
+        auto renderTopLeft = GetScreenToWorld2D(Vector2(0, 0), camera);
+        auto renderBottomRight = Vector2Add(GetScreenToWorld2D(Vector2(windowWidth, windowHeight), camera),
+            Vector2(tileSize, tileSize));
 
-        camera.target = playerPos;
+        auto startX = clamp(floor(renderTopLeft.x / tileSize), 0, mapWidth);
+        auto endX = clamp(floor(renderBottomRight.x / tileSize), 0, mapWidth);
 
-        auto halfWindow = Vector2(windowWidth / 2, windowHeight / 2);
+        auto startY = clamp(floor(renderTopLeft.y / tileSize), 0, mapWidth);
+        auto endY = clamp(floor(renderBottomRight.y / tileSize), 0, mapWidth);
 
-        camera.offset = halfWindow;
-
-    
-        auto topLeft = GetScreenToWorld2D(Vector2(0, 0), camera);
-        auto bottomRight = GetScreenToWorld2D(Vector2(windowWidth, windowHeight), camera);
-
-        DrawCircle(cast(int) topLeft.x, cast(int) topLeft.y, 10, Colors.GREEN);
-        DrawCircle(cast(int) bottomRight.x, cast(int) bottomRight.y, 10, Colors.BLUE);
+        // writeln("width:" ~ to!string(endX - startX));
+        // writeln("height:" ~ to!string(endY - startY));
 
         int count = 0;
         // This is really dumb and slow and is just proof of concept.
-        foreach (x; 0 .. 10) {
-            foreach (y; 0 .. 10) {
+        foreach (x; startX .. endX) {
+            foreach (y; startY .. endY) {
                 // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
 
                 auto pos = Vector2(x * tileSize, y * tileSize);
@@ -129,14 +135,18 @@ void main() {
                     }
                 }
 
-                // auto texture = Textures.get("dirt.png");
-                // auto source = Rectangle(0, 0, texture.width, texture.height);
+                auto texture = Textures.get("dirt.png");
+                auto source = Rectangle(0, 0, texture.width, texture.height);
 
-                // DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
+                DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
                 // // Debug to see the grid.
-                // DrawRectangleLinesEx(dest, 0.25, Colors.RED);
+                DrawRectangleLinesEx(dest, 0.25, Colors.RED);
             }
         }
+
+        DrawCircle(cast(int) renderTopLeft.x, cast(int) renderTopLeft.y, 10, Colors.GREEN);
+        DrawCircle(cast(int) renderBottomRight.x - tileSize, cast(int) renderBottomRight.y - tileSize, 10, Colors
+                .BLUE);
 
         EndMode2D();
 
