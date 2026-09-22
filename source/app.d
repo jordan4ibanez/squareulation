@@ -2,6 +2,7 @@ import raylib;
 import std.algorithm;
 import std.conv;
 import std.math;
+import std.random;
 import std.stdio;
 import std.string;
 import textures.textures;
@@ -39,6 +40,8 @@ void main() {
 
     Vector2 playerPos = Vector2(512, 512);
 
+    float playerWalkThing = 0f;
+
     while (!WindowShouldClose()) {
 
         Delta.__calculateDelta();
@@ -52,17 +55,26 @@ void main() {
         {
 
             auto speed = 5.0;
+            bool hit = false;
 
             if (IsKeyDown(KeyboardKey.KEY_A)) {
                 playerPos.x -= speed * delta;
+                hit = true;
             } else if (IsKeyDown(KeyboardKey.KEY_D)) {
                 playerPos.x += speed * delta;
+                hit = true;
             }
 
             if (IsKeyDown(KeyboardKey.KEY_W)) {
                 playerPos.y -= speed * delta;
+                hit = true;
             } else if (IsKeyDown(KeyboardKey.KEY_S)) {
                 playerPos.y += speed * delta;
+                hit = true;
+            }
+
+            if (hit) {
+                playerWalkThing += delta;
             }
         }
 
@@ -153,6 +165,15 @@ void main() {
                 DrawRectangleLinesEx(dest, 0.25, Colors.RED);
             }
         }
+
+        // The player.
+
+        auto playerTexture = Textures.get("player.png");
+        auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
+        auto dest = Rectangle(playerPos.x * tileSize, playerPos.y * tileSize, tileSize, tileSize);
+
+        DrawTexturePro(playerTexture, source, dest, Vector2(tileSize / 2, tileSize / 2), uniform(0, 360.28f), Colors
+                .WHITE);
 
         DrawCircle(cast(int) renderTopLeft.x, cast(int) renderTopLeft.y, 10, Colors.GREEN);
         DrawCircle(cast(int) renderBottomRight.x - tileSize, cast(int) renderBottomRight.y - tileSize, 10, Colors
