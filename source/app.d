@@ -94,7 +94,7 @@ void main() {
                 auto pos = Vector2(x * tileSize, y * tileSize);
                 auto dest = Rectangle(pos.x, pos.y, tileSize, tileSize);
 
-                if (x == 0 && y == 0) {
+                {
                     //? Screen boundary check.
                     // Left bounds check.
                     auto worldPos = GetWorldToScreen2D(Vector2(pos.x + tileSize, pos.y), camera);
@@ -115,7 +115,6 @@ void main() {
                     // Bottom bounds check.
                     worldPos = GetWorldToScreen2D(Vector2(pos.x, pos.y), camera);
                     if (worldPos.y > windowHeight) {
-                        writeln("culling");
                         continue;
                     }
 
