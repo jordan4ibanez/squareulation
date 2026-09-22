@@ -1,4 +1,5 @@
 import raylib;
+import std.algorithm;
 import std.stdio;
 import textures.textures;
 import utility.grid;
@@ -31,10 +32,32 @@ void main() {
 
         //? Logic.
 
-        if (IsKeyDown(KeyboardKey.KEY_A)) {
-            playerPos.x -= 1;
-        } else if (IsKeyDown(KeyboardKey.KEY_D)) {
-            playerPos.x += 1;
+        {
+            if (IsKeyDown(KeyboardKey.KEY_A)) {
+                playerPos.x -= 1;
+            } else if (IsKeyDown(KeyboardKey.KEY_D)) {
+                playerPos.x += 1;
+            }
+
+            if (IsKeyDown(KeyboardKey.KEY_W)) {
+                playerPos.y -= 1;
+            } else if (IsKeyDown(KeyboardKey.KEY_S)) {
+                playerPos.y += 1;
+            }
+        }
+
+        {
+
+            float wheel = GetMouseWheelMove();
+            if (wheel != 0f) {
+                float zoomFactor = 1.1f;
+                if (wheel > 0) {
+                    camera.zoom *= zoomFactor;
+                } else {
+                    camera.zoom /= zoomFactor;
+                }
+                camera.zoom = clamp(camera.zoom, 0.1f, 10.0f);
+            }
         }
 
         //? Rendering.
@@ -60,7 +83,8 @@ void main() {
 
                 auto dest = Rectangle(pos.x, pos.y, 32, 32);
                 DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
-                DrawRectangleLines(cast(int) pos.x, cast(int) pos.y, 32, 32, Colors.RED);
+                // Debug to see the grid.
+                DrawRectangleLinesEx(dest, 0.25, Colors.RED);
             }
         }
 
