@@ -53,7 +53,7 @@ void main() {
         foreach (x; 0 .. 10) {
             foreach (y; 0 .. 10) {
                 // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
-                auto texture = Textures.get("arrow.png");
+                auto texture = Textures.get("dirt.png");
                 auto source = Rectangle(0, 0, texture.width, texture.height);
                 auto dest = Rectangle(x * 32, y * 32, 32, 32);
                 DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
