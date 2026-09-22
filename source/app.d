@@ -2,13 +2,17 @@ import raylib;
 import std.algorithm;
 import std.stdio;
 import textures.textures;
+import utility.delta;
 import utility.grid;
 
 void main() {
 
     // todo: fixed map size: 1024x1024
 
-    auto map = Grid!int(1024, 1024);
+    const mapWidth = 1024;
+    const tileSize = 32;
+
+    auto map = Grid!int(mapWidth, mapWidth);
 
     SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
     SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE);
@@ -19,7 +23,7 @@ void main() {
 
     Textures.load();
 
-    MaximizeWindow();
+    // MaximizeWindow();
 
     Camera2D camera;
     camera.target = Vector2(0, 0);
@@ -29,6 +33,10 @@ void main() {
     Vector2 playerPos;
 
     while (!WindowShouldClose()) {
+
+        Delta.__calculateDelta();
+
+        // writeln(Delta.getDelta());
 
         //? Logic.
 
@@ -71,17 +79,34 @@ void main() {
         auto windowHeight = GetScreenHeight();
 
         camera.target = playerPos;
-        camera.offset = Vector2(windowWidth / 2, windowHeight / 2);
 
+        auto halfCamera = Vector2(windowWidth / 2, windowHeight / 2);
+
+        camera.offset = halfCamera;
+
+        // This is really dumb and slow and is just proof of concept.
         foreach (x; 0 .. 10) {
             foreach (y; 0 .. 10) {
                 // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
+
                 auto texture = Textures.get("dirt.png");
                 auto source = Rectangle(0, 0, texture.width, texture.height);
+                auto pos = Vector2(x * tileSize, y * tileSize);
+                auto dest = Rectangle(pos.x, pos.y, tileSize, tileSize);
 
-                auto pos = Vector2(x * 32, y * 32);
+                if (x == 0 && y == 0) {
 
-                auto dest = Rectangle(pos.x, pos.y, 32, 32);
+                    // Left bounds check.
+                    auto worldPos = GetWorldToScreen2D(Vector2(pos.x + tileSize, pos.y), camera);
+                    if (worldPos.x < 0) {
+                        continue;
+                    }
+
+                    // Right 
+
+                    writeln(worldPos);
+                }
+
                 DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
                 // Debug to see the grid.
                 DrawRectangleLinesEx(dest, 0.25, Colors.RED);
