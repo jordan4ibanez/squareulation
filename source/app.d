@@ -107,6 +107,18 @@ void main() {
                         continue;
                     }
 
+                    // Top bounds check.
+                    worldPos = GetWorldToScreen2D(Vector2(pos.x, pos.y + tileSize), camera);
+                    if (worldPos.y < 0) {
+                        continue;
+                    }
+                    // Bottom bounds check.
+                    worldPos = GetWorldToScreen2D(Vector2(pos.x, pos.y), camera);
+                    if (worldPos.y > windowHeight) {
+                        writeln("culling");
+                        continue;
+                    }
+
                     writeln(worldPos);
                 }
 
