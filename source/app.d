@@ -51,7 +51,7 @@ void main() {
 
         {
 
-            auto speed = 1000.0;
+            auto speed = 5.0;
 
             if (IsKeyDown(KeyboardKey.KEY_A)) {
                 playerPos.x -= speed * delta;
@@ -163,7 +163,8 @@ void main() {
         DrawText(("FPS:" ~ to!string(GetFPS()) ~ " | Loop count: " ~ to!string(count))
                 .toStringz(), 0, 0, 48, Colors.RED);
 
-        DrawText(("POSX:" ~ to!string(playerPos.x)).toStringz(), 0, 48, 48, Colors.RED);
+        DrawText(("POSX:" ~ to!string(playerPos.x)).toStringz(), 0, 48, 48, Colors.GREEN);
+        DrawText(("POSY:" ~ to!string(playerPos.y)).toStringz(), 0, 96, 48, Colors.GREEN);
 
         EndDrawing();
     }
