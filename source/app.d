@@ -8,6 +8,10 @@ import textures.textures;
 import utility.delta;
 import utility.grid;
 
+/** 
+ * / ~ // todo: protect entity position in base class. build in get and set position into entity to automatically scale their position to normalization.
+  *    ! OR, JUST use a special rendering get position to scale it up into the world. (probably a better idea)
+ */
 void main() {
 
     // todo: fixed map size: 1024x1024
@@ -85,7 +89,7 @@ void main() {
         // It must center on the player before 2D mode begins or else it is rubber banding towards the player.
         auto windowWidth = GetScreenWidth();
         auto windowHeight = GetScreenHeight();
-        camera.target = playerPos;
+        camera.target = Vector2Multiply(playerPos, Vector2(tileSize, tileSize));
         auto halfWindow = Vector2(windowWidth / 2, windowHeight / 2);
         camera.offset = halfWindow;
 
