@@ -17,7 +17,7 @@ void main() {
 
     // todo: fixed map size: 1024x1024
 
-    const mapWidth = 1024;
+    const mapWidth = 4096;
     const tileSize = 32;
 
     auto map = Grid!int(mapWidth, mapWidth);
