@@ -82,17 +82,27 @@ void main() {
 
         camera.target = playerPos;
 
-        auto halfCamera = Vector2(windowWidth / 2, windowHeight / 2);
+        auto halfWindow = Vector2(windowWidth / 2, windowHeight / 2);
 
-        camera.offset = halfCamera;
+        camera.offset = halfWindow;
 
+    
+        auto topLeft = GetScreenToWorld2D(Vector2(0, 0), camera);
+        auto bottomRight = GetScreenToWorld2D(Vector2(windowWidth, windowHeight), camera);
+
+        DrawCircle(cast(int) topLeft.x, cast(int) topLeft.y, 10, Colors.GREEN);
+        DrawCircle(cast(int) bottomRight.x, cast(int) bottomRight.y, 10, Colors.BLUE);
+
+        int count = 0;
         // This is really dumb and slow and is just proof of concept.
-        foreach (x; 0 .. mapWidth) {
-            foreach (y; 0 .. mapWidth) {
+        foreach (x; 0 .. 10) {
+            foreach (y; 0 .. 10) {
                 // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
 
                 auto pos = Vector2(x * tileSize, y * tileSize);
                 auto dest = Rectangle(pos.x, pos.y, tileSize, tileSize);
+
+                count++;
 
                 {
                     //? Screen boundary check.
@@ -119,18 +129,19 @@ void main() {
                     }
                 }
 
-                auto texture = Textures.get("dirt.png");
-                auto source = Rectangle(0, 0, texture.width, texture.height);
+                // auto texture = Textures.get("dirt.png");
+                // auto source = Rectangle(0, 0, texture.width, texture.height);
 
-                DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
-                // Debug to see the grid.
-                DrawRectangleLinesEx(dest, 0.25, Colors.RED);
+                // DrawTexturePro(texture, source, dest, Vector2(0, 0), 0, Colors.WHITE);
+                // // Debug to see the grid.
+                // DrawRectangleLinesEx(dest, 0.25, Colors.RED);
             }
         }
 
         EndMode2D();
 
-        DrawText(("FPS:" ~ to!string(GetFPS())).toStringz(), 0, 0, 48, Colors.RED);
+        // DrawText(("FPS:" ~ to!string(GetFPS()) ~ " | Loop count: " ~ to!string(count))
+        //         .toStringz(), 0, 0, 48, Colors.RED);
 
         EndDrawing();
     }
