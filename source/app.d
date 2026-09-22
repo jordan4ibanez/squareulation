@@ -89,7 +89,7 @@ void main() {
                     camera.zoom /= zoomFactor;
                 }
                 camera.zoom = clamp(camera.zoom, 0.9f, 10.0f);
-                writeln(camera.zoom);
+                // writeln(camera.zoom);
             }
         }
 
