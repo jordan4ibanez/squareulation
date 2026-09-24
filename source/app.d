@@ -45,7 +45,7 @@ void main() {
 
         //? Logic.
 
-        Player.controls();
+        Player.controls(camera);
 
         {
 
