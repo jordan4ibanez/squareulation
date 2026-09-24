@@ -145,8 +145,8 @@ void main() {
 
         Player.draw();
 
-        DrawCircle(cast(int) renderTopLeft.x, cast(int) renderTopLeft.y, 10, Colors.GREEN);
-        DrawCircle(cast(int) renderBottomRight.x - tileSize, cast(int) renderBottomRight.y - tileSize, 10, Colors
+        DrawCircleV(renderTopLeft, 10, Colors.GREEN);
+        DrawCircleV(renderBottomRight - tileSize, 10, Colors
                 .BLUE);
 
         EndMode2D();

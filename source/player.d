@@ -14,7 +14,7 @@ static:
 
     void move() {
         auto delta = Delta.getDelta();
-        auto speed = 5.0;
+        auto speed = 2.0;
         bool hit = false;
 
         if (IsKeyDown(KeyboardKey.KEY_A)) {
@@ -34,7 +34,7 @@ static:
         }
 
         if (hit) {
-            walkingAnimationThing += delta * 30.0;
+            walkingAnimationThing += delta * speed * 10.0;
         }
     }
 
