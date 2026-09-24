@@ -43,6 +43,7 @@ static:
         // This has been golfed cause all it does is set your yaw.
         auto mouseInWorld = GetScreenToWorld2D(GetMousePosition(), camera);
 
+        // todo: make this check distance.
         selection = Vector2(floor(mouseInWorld.x), floor(mouseInWorld.y));
 
         Vector2 diff = Vector2Subtract(mouseInWorld, this.pos);
