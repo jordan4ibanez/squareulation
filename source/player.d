@@ -13,6 +13,7 @@ static:
     Vector2 pos = Vector2(0, 0);
     float yaw = 0.0f;
     float walkingAnimationThing = 0.0f;
+    Vector2 selection = Vector2(-1, -1);
 
     void controls(Camera2D camera) {
         auto delta = Delta.getDelta();
@@ -40,9 +41,12 @@ static:
         }
 
         // This has been golfed cause all it does is set your yaw.
-        Vector2 diff = Vector2Subtract(GetScreenToWorld2D(GetMousePosition(), camera), this.pos);
-        this.yaw = atan2(diff.y, diff.x) * RAD2DEG;
+        auto mouseInWorld = GetScreenToWorld2D(GetMousePosition(), camera);
 
+        selection = Vector2(floor(mouseInWorld.x), floor(mouseInWorld.y));
+
+        Vector2 diff = Vector2Subtract(mouseInWorld, this.pos);
+        this.yaw = atan2(diff.y, diff.x) * RAD2DEG;
     }
 
     Vector2 getPos() {
@@ -50,6 +54,11 @@ static:
     }
 
     void draw() {
+
+        if (IsCursorOnScreen() && selection.x >= 0 && selection.x < MAP_WIDTH && selection.y >= 0 && selection.y < MAP_WIDTH) {
+            auto rect = Rectangle(selection.x, selection.y, 1, 1);
+            DrawRectangleLinesEx(rect, 0.1, Colors.BLUE);
+        }
 
         auto player = Rectangle(this.pos.x, this.pos.y, 0.35, 0.75);
         auto origin = Vector2(0.175, 0.375);
