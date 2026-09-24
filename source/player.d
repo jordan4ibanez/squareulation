@@ -43,12 +43,13 @@ static:
     }
 
     void draw() {
-        auto playerTexture = Textures.get("player.png");
-        auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
-        auto dest = Rectangle(this.pos.x * TILE_SIZE, this.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
 
-        DrawTexturePro(playerTexture, source, dest, Vector2(TILE_SIZE / 2, TILE_SIZE / 2), cos(
-                walkingAnimationThing) * 10.0, Colors.WHITE);
+        // auto playerTexture = Textures.get("player.png");
+        // auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
+        // auto dest = Rectangle(this.pos.x * TILE_SIZE, this.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+
+        // DrawTexturePro(playerTexture, source, dest, Vector2(TILE_SIZE / 2, TILE_SIZE / 2), cos(
+        //         walkingAnimationThing) * 10.0, Colors.WHITE);
     }
 
 }
