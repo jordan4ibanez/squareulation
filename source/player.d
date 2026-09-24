@@ -44,6 +44,11 @@ static:
 
     void draw() {
 
+        auto player = Rectangle(0, 0, 32, 32);
+        auto origin = Vector2(16, 16);
+
+        DrawRectanglePro(player, origin, 0, Colors.RED);
+
         // auto playerTexture = Textures.get("player.png");
         // auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
         // auto dest = Rectangle(this.pos.x * TILE_SIZE, this.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
