@@ -51,9 +51,13 @@ static:
 
     void draw() {
 
-        auto player = Rectangle(this.pos.x, this.pos.y, 0.5, 0.75);
-        auto origin = Vector2(0.25, 0.375);
+        auto player = Rectangle(this.pos.x, this.pos.y, 0.35, 0.75);
+        auto origin = Vector2(0.175, 0.375);
         DrawRectanglePro(player, origin, this.yaw, Colors.RED);
+
+        auto head = Rectangle(this.pos.x, this.pos.y, 0.4, 0.4);
+        auto headOrigin = Vector2(0.2, 0.2);
+        DrawRectanglePro(head, headOrigin, this.yaw, Colors.BLUE);
 
         // auto playerTexture = Textures.get("player.png");
         // auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
