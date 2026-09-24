@@ -1,3 +1,3 @@
 module utility.game_constants;
 
-public immutable TILE_SIZE = 1;
+// public immutable TILE_SIZE = 1;

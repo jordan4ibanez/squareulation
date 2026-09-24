@@ -81,11 +81,11 @@ void main() {
         auto renderBottomRight = Vector2Add(GetScreenToWorld2D(Vector2(windowWidth, windowHeight), camera),
             Vector2(1, 1));
 
-        int startX = cast(int) clamp(floor(renderTopLeft.x / TILE_SIZE), 0, mapWidth);
-        int endX = cast(int) clamp(floor(renderBottomRight.x / TILE_SIZE), 0, mapWidth);
+        int startX = cast(int) clamp(renderTopLeft.x, 0, mapWidth);
+        int endX = cast(int) clamp(renderBottomRight.x, 0, mapWidth);
 
-        int startY = cast(int) clamp(floor(renderTopLeft.y / TILE_SIZE), 0, mapWidth);
-        int endY = cast(int) clamp(floor(renderBottomRight.y / TILE_SIZE), 0, mapWidth);
+        int startY = cast(int) clamp(renderTopLeft.y, 0, mapWidth);
+        int endY = cast(int) clamp(renderBottomRight.y, 0, mapWidth);
 
         // writeln("width:" ~ to!string(endX - startX));
         // writeln("height:" ~ to!string(endY - startY));
@@ -96,15 +96,15 @@ void main() {
             foreach (y; startY .. endY) {
                 // DrawTextureEx(Textures.get("arrow.png"), x * 32, y * 32, Colors.WHITE);
 
-                auto pos = Vector2(x * TILE_SIZE, y * TILE_SIZE);
-                auto dest = Rectangle(pos.x, pos.y, TILE_SIZE, TILE_SIZE);
+                auto pos = Vector2(x, y);
+                auto dest = Rectangle(pos.x, pos.y, 1, 1);
 
                 count++;
 
                 {
                     //? Screen boundary check.
                     // Left bounds check.
-                    auto worldPos = GetWorldToScreen2D(Vector2(pos.x + TILE_SIZE, pos.y), camera);
+                    auto worldPos = GetWorldToScreen2D(Vector2(pos.x + 1, pos.y), camera);
                     if (worldPos.x < 0) {
                         continue;
                     }
@@ -115,7 +115,7 @@ void main() {
                     }
 
                     // Top bounds check.
-                    worldPos = GetWorldToScreen2D(Vector2(pos.x, pos.y + TILE_SIZE), camera);
+                    worldPos = GetWorldToScreen2D(Vector2(pos.x, pos.y + 1), camera);
                     if (worldPos.y < 0) {
                         continue;
                     }
@@ -143,7 +143,7 @@ void main() {
         Player.draw();
 
         DrawCircleV(renderTopLeft, 0.2, Colors.GREEN);
-        DrawCircleV(renderBottomRight - TILE_SIZE, 0.2, Colors
+        DrawCircleV(renderBottomRight - 1, 0.2, Colors
                 .BLUE);
 
         EndMode2D();
