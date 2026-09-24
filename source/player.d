@@ -2,6 +2,7 @@ module player;
 
 import raylib;
 import std.math;
+import std.stdio;
 import textures.textures;
 import utility.delta;
 import utility.game_constants;
@@ -10,9 +11,10 @@ static final const class Player {
 static:
 
     Vector2 pos = Vector2(0, 0);
-    float walkingAnimationThing = 0f;
+    float yaw = 0.0f;
+    float walkingAnimationThing = 0.0f;
 
-    void controls() {
+    void controls(Camera2D camera) {
         auto delta = Delta.getDelta();
         auto speed = 2.0;
         bool hit = false;
@@ -36,6 +38,11 @@ static:
         if (hit) {
             walkingAnimationThing += delta * speed * 10.0;
         }
+
+        // This has been golfed cause all it does is set your yaw.
+        Vector2 diff = Vector2Subtract(GetScreenToWorld2D(GetMousePosition(), camera), this.pos);
+        this.yaw = atan2(diff.y, diff.x) * RAD2DEG;
+
     }
 
     Vector2 getPos() {
@@ -44,9 +51,9 @@ static:
 
     void draw() {
 
-        auto player = Rectangle(this.pos.x, this.pos.y, 1.0, 1.0);
-        auto origin = Vector2(0.5, 0.5);
-        DrawRectanglePro(player, origin, 0, Colors.RED);
+        auto player = Rectangle(this.pos.x, this.pos.y, 0.5, 0.75);
+        auto origin = Vector2(0.25, 0.375);
+        DrawRectanglePro(player, origin, this.yaw, Colors.RED);
 
         // auto playerTexture = Textures.get("player.png");
         // auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
