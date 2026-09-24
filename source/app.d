@@ -41,14 +41,11 @@ void main() {
     camera.zoom = 2.75f;
 
     while (!WindowShouldClose()) {
-
         Delta.__calculateDelta();
-
-        // writeln(Delta.getDelta());
 
         //? Logic.
 
-        Player.move();
+        Player.controls();
 
         {
 

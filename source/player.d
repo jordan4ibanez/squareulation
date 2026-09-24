@@ -12,7 +12,7 @@ static:
     Vector2 pos = Vector2(512, 512);
     float walkingAnimationThing = 0f;
 
-    void move() {
+    void controls() {
         auto delta = Delta.getDelta();
         auto speed = 2.0;
         bool hit = false;
