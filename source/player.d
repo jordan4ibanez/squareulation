@@ -56,7 +56,11 @@ static:
 
     void draw() {
 
-        if (IsCursorOnScreen() && selection.x >= 0 && selection.x < MAP_WIDTH && selection.y >= 0 && selection.y < MAP_WIDTH) {
+        if (IsCursorOnScreen() &&
+            selection.x >= 0 &&
+            selection.x < MAP_WIDTH &&
+            selection.y >= 0 &&
+            selection.y < MAP_WIDTH) {
             auto rect = Rectangle(selection.x, selection.y, 1, 1);
             DrawRectangleLinesEx(rect, 0.1, Colors.BLUE);
         }
