@@ -44,17 +44,17 @@ static:
 
     void draw() {
 
-        auto player = Rectangle(0, 0, 32, 32);
-        auto origin = Vector2(16, 16);
+        // auto player = Rectangle(0, 0, 32, 32);
+        // auto origin = Vector2(16, 16);
 
-        DrawRectanglePro(player, origin, 0, Colors.RED);
+        // DrawRectanglePro(player, origin, 0, Colors.RED);
 
-        // auto playerTexture = Textures.get("player.png");
-        // auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
-        // auto dest = Rectangle(this.pos.x * TILE_SIZE, this.pos.y * TILE_SIZE, TILE_SIZE, TILE_SIZE);
+        auto playerTexture = Textures.get("player.png");
+        auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
+        auto dest = Rectangle(this.pos.x, this.pos.y, 1, 1);
 
-        // DrawTexturePro(playerTexture, source, dest, Vector2(TILE_SIZE / 2, TILE_SIZE / 2), cos(
-        //         walkingAnimationThing) * 10.0, Colors.WHITE);
+        DrawTexturePro(playerTexture, source, dest, Vector2(1.0 / 2.0, 1.0 / 2.0), cos(
+                walkingAnimationThing) * 10.0, Colors.WHITE);
     }
 
 }
