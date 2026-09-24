@@ -1,6 +1,8 @@
+import player;
 import raylib;
 import std.algorithm;
 import std.conv;
+import std.getopt;
 import std.math;
 import std.random;
 import std.stdio;
@@ -38,45 +40,15 @@ void main() {
     camera.rotation = 0f;
     camera.zoom = 2.75f;
 
-    Vector2 playerPos = Vector2(512, 512);
-
-    float playerWalkThing = 0f;
-
     while (!WindowShouldClose()) {
 
         Delta.__calculateDelta();
 
         // writeln(Delta.getDelta());
 
-        auto delta = Delta.getDelta();
-
         //? Logic.
 
-        {
-
-            auto speed = 5.0;
-            bool hit = false;
-
-            if (IsKeyDown(KeyboardKey.KEY_A)) {
-                playerPos.x -= speed * delta;
-                hit = true;
-            } else if (IsKeyDown(KeyboardKey.KEY_D)) {
-                playerPos.x += speed * delta;
-                hit = true;
-            }
-
-            if (IsKeyDown(KeyboardKey.KEY_W)) {
-                playerPos.y -= speed * delta;
-                hit = true;
-            } else if (IsKeyDown(KeyboardKey.KEY_S)) {
-                playerPos.y += speed * delta;
-                hit = true;
-            }
-
-            if (hit) {
-                playerWalkThing += delta * 30.0;
-            }
-        }
+        Player.move();
 
         {
 
@@ -101,7 +73,7 @@ void main() {
         // It must center on the player before 2D mode begins or else it is rubber banding towards the player.
         auto windowWidth = GetScreenWidth();
         auto windowHeight = GetScreenHeight();
-        camera.target = Vector2Multiply(playerPos, Vector2(tileSize, tileSize));
+        camera.target = Vector2Multiply(Player.getPos(), Vector2(tileSize, tileSize));
         auto halfWindow = Vector2(windowWidth / 2, windowHeight / 2);
         camera.offset = halfWindow;
 
@@ -171,12 +143,7 @@ void main() {
 
         // The player.
 
-        auto playerTexture = Textures.get("player.png");
-        auto source = Rectangle(0, 0, playerTexture.height, playerTexture.width);
-        auto dest = Rectangle(playerPos.x * tileSize, playerPos.y * tileSize, tileSize, tileSize);
-
-        DrawTexturePro(playerTexture, source, dest, Vector2(tileSize / 2, tileSize / 2), cos(
-                playerWalkThing) * 10.0, Colors.WHITE);
+        Player.draw();
 
         DrawCircle(cast(int) renderTopLeft.x, cast(int) renderTopLeft.y, 10, Colors.GREEN);
         DrawCircle(cast(int) renderBottomRight.x - tileSize, cast(int) renderBottomRight.y - tileSize, 10, Colors
@@ -187,8 +154,8 @@ void main() {
         DrawText(("FPS:" ~ to!string(GetFPS()) ~ " | Loop count: " ~ to!string(count))
                 .toStringz(), 0, 0, 48, Colors.RED);
 
-        DrawText(("POSX:" ~ to!string(playerPos.x)).toStringz(), 0, 48, 48, Colors.GREEN);
-        DrawText(("POSY:" ~ to!string(playerPos.y)).toStringz(), 0, 96, 48, Colors.GREEN);
+        DrawText(("POSX:" ~ to!string(Player.getPos().x)).toStringz(), 0, 48, 48, Colors.GREEN);
+        DrawText(("POSY:" ~ to!string(Player.getPos().y)).toStringz(), 0, 96, 48, Colors.GREEN);
 
         EndDrawing();
     }
