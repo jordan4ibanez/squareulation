@@ -20,9 +20,7 @@ void main() {
 
     // todo: fixed map size: 1024x1024
 
-    const mapWidth = 4096;
-
-    auto map = Grid!int(mapWidth, mapWidth, 1);
+    auto map = Grid!int(MAP_WIDTH, MAP_WIDTH, 1);
 
     SetTraceLogLevel(TraceLogLevel.LOG_WARNING);
     SetConfigFlags(ConfigFlags.FLAG_WINDOW_RESIZABLE); // | ConfigFlags.FLAG_VSYNC_HINT);
@@ -81,11 +79,11 @@ void main() {
         auto renderBottomRight = Vector2Add(GetScreenToWorld2D(Vector2(windowWidth, windowHeight), camera),
             Vector2(1, 1));
 
-        int startX = cast(int) clamp(renderTopLeft.x, 0, mapWidth);
-        int endX = cast(int) clamp(renderBottomRight.x, 0, mapWidth);
+        int startX = cast(int) clamp(renderTopLeft.x, 0, MAP_WIDTH);
+        int endX = cast(int) clamp(renderBottomRight.x, 0, MAP_WIDTH);
 
-        int startY = cast(int) clamp(renderTopLeft.y, 0, mapWidth);
-        int endY = cast(int) clamp(renderBottomRight.y, 0, mapWidth);
+        int startY = cast(int) clamp(renderTopLeft.y, 0, MAP_WIDTH);
+        int endY = cast(int) clamp(renderBottomRight.y, 0, MAP_WIDTH);
 
         // writeln("width:" ~ to!string(endX - startX));
         // writeln("height:" ~ to!string(endY - startY));
