@@ -38,7 +38,7 @@ void main() {
     Camera2D camera;
     camera.target = Vector2(0, 0);
     camera.rotation = 0f;
-    camera.zoom = 10.0f;
+    camera.zoom = 175.0f;
 
     while (!WindowShouldClose()) {
         Delta.__calculateDelta();
@@ -57,8 +57,8 @@ void main() {
                 } else {
                     camera.zoom /= zoomFactor;
                 }
-                // camera.zoom = clamp(camera.zoom, 0.9f, 10.0f);
-                // writeln(camera.zoom);
+                camera.zoom = clamp(camera.zoom, 80.0f, 900.0f);
+                writeln(camera.zoom);
             }
         }
 
@@ -70,7 +70,7 @@ void main() {
         // It must center on the player before 2D mode begins or else it is rubber banding towards the player.
         auto windowWidth = GetScreenWidth();
         auto windowHeight = GetScreenHeight();
-        camera.target = Vector2Multiply(Player.getPos(), Vector2(TILE_SIZE, TILE_SIZE));
+        camera.target = Player.getPos();
         auto halfWindow = Vector2(windowWidth / 2, windowHeight / 2);
         camera.offset = halfWindow;
 
@@ -79,7 +79,7 @@ void main() {
         // Get the top left and bottom right screen coordinates to make this render only what's needed.
         auto renderTopLeft = GetScreenToWorld2D(Vector2(0, 0), camera);
         auto renderBottomRight = Vector2Add(GetScreenToWorld2D(Vector2(windowWidth, windowHeight), camera),
-            Vector2(TILE_SIZE, TILE_SIZE));
+            Vector2(1, 1));
 
         int startX = cast(int) clamp(floor(renderTopLeft.x / TILE_SIZE), 0, mapWidth);
         int endX = cast(int) clamp(floor(renderBottomRight.x / TILE_SIZE), 0, mapWidth);
@@ -142,8 +142,8 @@ void main() {
 
         Player.draw();
 
-        DrawCircleV(renderTopLeft, 10, Colors.GREEN);
-        DrawCircleV(renderBottomRight - TILE_SIZE, 10, Colors
+        DrawCircleV(renderTopLeft, 0.2, Colors.GREEN);
+        DrawCircleV(renderBottomRight - TILE_SIZE, 0.2, Colors
                 .BLUE);
 
         EndMode2D();
